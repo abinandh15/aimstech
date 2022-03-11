@@ -1,0 +1,26 @@
+<nb-card>
+    <nb-card-header>
+        <h2>{{title}}</h2>
+        <div class="action-buttons">
+            <button nbButton status="primary" (click)="add()">ADD</button>
+            <button nbButton status="success" [disabled]="!isSelected" (click)="edit()">EDIT</button>
+            <button nbButton status="danger" [disabled]="!isSelected">DELETE</button>
+        </div>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="container">
+            <div class="row header-row my-2 text-center">
+                <div class="col">
+                    Work Order
+                </div>
+                <div class="col">
+                    Quantity
+                </div>
+            </div>
+            <div class="row text-center my-1" *ngFor="let item of data | async">
+                <div class="col">{{item.workOrderNumber}}</div>
+                <div class="col">{{item.quantity}}</div>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>

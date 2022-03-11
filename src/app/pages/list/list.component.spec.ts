@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WorkOrderTableComponent } from './work-order-table.component';
+import { ListComponent } from './list.component';
 
-describe('WorkOrderTableComponent', () => {
-  let component: WorkOrderTableComponent;
-  let fixture: ComponentFixture<WorkOrderTableComponent>;
+describe('ListComponent', () => {
+  let component: ListComponent;
+  let fixture: ComponentFixture<ListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WorkOrderTableComponent ]
+      declarations: [ ListComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WorkOrderTableComponent);
+    fixture = TestBed.createComponent(ListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

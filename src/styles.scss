@@ -1,6 +1,7 @@
 @use 'themes' as *;
 
 @use '@nebular/theme/styles/globals' as *;
+@import "~bootstrap/dist/css/bootstrap.css";
 
 @include nb-install() {
   @include nb-theme-global();
