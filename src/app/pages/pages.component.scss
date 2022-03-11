@@ -1,0 +1,82 @@
+
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    width: calc(#{nb-theme(sidebar-width)} - #{nb-theme(header-padding)});
+  }
+
+  nb-action {
+    height: auto;
+    display: flex;
+    align-content: center;
+  }
+
+  nb-user {
+    cursor: pointer;
+  }
+
+  ::ng-deep nb-search button {
+    padding: 0!important;
+  }
+
+  .header-container {
+    display: flex;
+    align-items: center;
+    width: auto;
+
+    .sidebar-toggle {
+      text-decoration: none;
+      color: nb-theme(text-hint-color);
+      nb-icon {
+        font-size: 1.75rem;
+      }
+    }
+
+    .logo {
+      padding: 0 1.25rem;
+      font-size: 1.75rem;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+  }
+
+
+  ::ng-deep {
+    ng2-smart-table {
+      table {
+        tbody {
+          /* Alternating row colour */
+          tr:nth-child(2n) {
+            background-color: nb-theme(color-primary-400);
+          }
+          tr:hover {
+            background-color: nb-theme(color-primary-100) !important;
+            cursor: pointer;
+          }
+         
+            .selected{
+              background-color: blue;
+            }
+         
+        }
+
+        /* headers */
+        tr.ng2-smart-titles th {
+          a {
+            font-weight: bold !important;
+          }
+
+          background-color: nb-theme(color-primary-200);
+          a {
+            color: nb-theme(color-basic-100);
+          }
+          a.sort.desc::after, a.sort.asc::after {
+            // arrow colour
+            border-bottom-color: nb-theme(color-basic-100);
+          }
+        }
+      }
+    }
+  }
+  

@@ -1,0 +1,66 @@
+<nb-card class="edit-work-order-container">
+    <nb-card-header class="edit-work-order-header">
+        <h3>Edit Work Order</h3>
+        <button nbButton status="success" *ngIf="!!selectedWorkOrder && !showForm" (click)="showForm = !showForm">EDIT</button>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="row" *ngIf="!!selectedWorkOrder && !showForm">
+            <div class="col">
+                <p><b>Workorder Number</b></p>
+                <p><b>Quantity</b></p>
+                <p><b>Customer Name</b></p>
+                <p><b>Part Number</b></p>
+                <p><b>Chase Type</b></p>
+            </div>
+            <div class="col">
+                <p>{{selectedWorkOrder.workOrderNumber}}</p>
+                <p>{{selectedWorkOrder.quantity}}</p>
+                <p>{{selectedWorkOrder.customerName}}</p>
+                <p>{{selectedWorkOrder.partNumber}}</p>
+                <p>{{selectedWorkOrder.chaseType}}</p>
+            </div>
+        </div>
+        <form [formGroup]="workOrdersForm" *ngIf="showForm">
+            <label for="work-order-number" class="label">
+                Work Order Number
+            </label>
+            <input type="number" id="work-order-number" nbInput fullWidth fieldSize="medium"
+                formControlName="workOrderNumber" placeholder="6 digit number" />
+
+            <label for="quantity" class="label">
+                Quantity
+            </label>
+            <input type="number" id="quantity" nbInput fullWidth fieldSize="medium" formControlName="quantity"
+                placeholder="Quantity" />
+
+            <label for="customer-name" class="label">
+                Customer Name
+            </label>
+            <input type="text" id="customer-name" nbInput fullWidth fieldSize="medium" formControlName="customerName"
+                placeholder="Customer Name" />
+
+            <label for="part-number" class="label">
+                Part Number
+            </label>
+            <input type="text" id="part-number" nbInput fullWidth fieldSize="medium" formControlName="partNumber"
+                placeholder="Part Number" />
+
+            <label for="chase-type" class="label">
+                Chassis Type
+            </label>
+            <br>
+            <nb-select id="chase-type" placeholder="Chase Type" formControlName="chaseType">
+                <nb-option *ngFor="let type of chaseTypeEnum" [value]="type.value">{{type.name}}</nb-option>
+
+            </nb-select>
+        </form>
+    </nb-card-body>
+    <nb-card-footer class="edit-work-order-footer">
+        <button class="mr-3" nbButton status="danger" (click)="closeDialog(null)">
+            Close
+        </button>
+        <button [disabled]="workOrdersForm.invalid" nbButton status="success" (click)="saveWorkOrder()">
+            Save
+        </button>
+    </nb-card-footer>
+</nb-card>

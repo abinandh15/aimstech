@@ -1,0 +1,53 @@
+<nb-card class="update-stock-container">
+    <nb-card-header class="update-stock-header">
+        <h3>Update Stocks</h3>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="row">
+            <div class="col">
+                <p><b>Customer Name</b></p>
+                <p><b>Part Number</b></p>
+                <p><b>Chase Type</b></p>
+            </div>
+            <div class="col">
+                <p>{{selectedWorkOrder.customerName}}</p>
+                <p>{{selectedWorkOrder.partNumber}}</p>
+                <p>{{selectedWorkOrder.chaseType}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <button nbButton status="primary" (click)="addItem()">
+                <nb-icon icon="plus-circle-outline"></nb-icon>
+            </button>
+        </div>
+        <form *ngIf="showForm" [formGroup]="itemForm">
+            <label for="item-name" class="label">
+                Item Name
+            </label>
+            <input type="string" id="item-name" nbInput fullWidth fieldSize="medium" formControlName="itemName"
+                placeholder="item name" />
+
+            <label for="part-number" class="label">
+                Part Number
+            </label>
+            <input type="string" id="part-number" nbInput fullWidth fieldSize="medium" formControlName="partNumber"
+                placeholder="part number" />
+
+            <label for="quantity" class="label">
+                Quantity
+            </label>
+            <input type="number" id="quantity" nbInput fullWidth fieldSize="medium" formControlName="quantity"
+                placeholder="quantity" />
+                <div class="form-action">
+                    <button class="mr-3" nbButton status="danger" (click)="showForm = !showForm">
+                        Close
+                    </button>
+                    <button [disabled]="itemForm.invalid" nbButton status="success" (click)="saveItem()">
+                        Save
+                    </button>
+                </div>
+
+        </form>
+        <ng2-smart-table *ngIf="!showForm" [settings]="tableSettings" [source]="tableData" (userRowSelect)="selectedRow($event)"></ng2-smart-table>
+    </nb-card-body>
+</nb-card>

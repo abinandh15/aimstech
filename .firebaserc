@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "aims-tech-e8043": {
+      "hosting": {
+        "aimstech": [
+          "aims-tech-e8043"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "aims-tech-e8043"
+  }
+}

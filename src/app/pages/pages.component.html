@@ -1,0 +1,26 @@
+<nb-layout windowMode>
+    <nb-layout-header fixed>
+      <div class="header-container">
+        <div class="logo-container">
+          <a (click)="toggleSidebar()" href="#" class="sidebar-toggle">
+            <nb-icon icon="menu-2-outline"></nb-icon>
+          </a>
+          <a class="logo" href="#" (click)="navigateHome()">Aims<span>Tech</span></a>
+        </div>        
+      </div>
+    </nb-layout-header>
+
+    <nb-sidebar class="menu-sidebar" tag="menu-sidebar" responsive>
+      <nb-menu [items]="menu"></nb-menu>
+    </nb-sidebar>
+
+    <nb-layout-column>
+      <router-outlet></router-outlet>
+    </nb-layout-column>
+
+    <nb-layout-footer fixed>
+      <span class="created-by">
+        Created with ♥ by <b><a href="https://akveo.page.link/8V2f" target="_blank">GenuineMonkey</a></b> 2022
+      </span>
+    </nb-layout-footer>
+ </nb-layout>

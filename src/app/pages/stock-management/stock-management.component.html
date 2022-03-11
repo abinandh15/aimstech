@@ -1,0 +1,22 @@
+<!-- <nb-card>
+    <nb-card-header>
+        <h1>Stock Management</h1>
+        <div class="action-buttons"> -->
+            <!-- <button nbButton status="primary" (click)="addWorkOrder()">ADD</button> -->
+            <!-- <button nbButton status="success" [disabled]="!isSelected" (click)="editWorkOrder()">EDIT</button> -->
+            <!-- <button nbButton status="danger" [disabled]="!isSelected">DELETE</button> -->
+        <!-- </div>
+    </nb-card-header>
+    <nb-card-body>
+        <ng2-smart-table [settings]="tableSettings" (userRowSelect)="selectRow($event)" [source]="orders"></ng2-smart-table>
+    </nb-card-body>
+</nb-card> -->
+
+<app-work-order-table
+    title="Stock Management"
+    [tableSettings]="tableSettings"
+    (rowSelected)="selectRow($event)"
+    [workOrders$]="workOrders$"
+    [showAddButton]="false"
+>    
+</app-work-order-table>
