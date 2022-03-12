@@ -33,10 +33,12 @@ export class StockManagementComponent implements OnInit, OnDestroy {
         },
         quantity:{
           title: "Quantity",
+          width: '25%',
           filter: false
         },
         status: {
           title: "Status",
+          width: '25%',
           filter: false,
         }
       }

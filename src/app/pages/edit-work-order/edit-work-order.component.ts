@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NbDialogRef } from '@nebular/theme';
-import { CHASE_TYPE, Item, WorkOrder } from 'src/app/models/work-order';
+import { CHASE_TYPE, Item, ProgressStatus, WorkOrder } from 'src/app/models/work-order';
 import { WorkOrderService } from 'src/app/services/work-order.service';
 
 @Component({
@@ -18,6 +18,13 @@ export class EditWorkOrderComponent implements OnInit {
     { name: "AIO", value: "AIO" },
     { name: "SLIM", value: "SLIM" }
   ]
+  progress :ProgressStatus ={
+    stockReceived: 0,
+    assembling: 0,
+    burnIn: 0,
+    fqc: 0,
+    packing: 0
+  }
   items: Item[] = [
     {
       itemName: 'Chassis',
@@ -130,6 +137,7 @@ export class EditWorkOrderComponent implements OnInit {
       const data: WorkOrder = {
         created: new Date().toISOString(),
         items: this.items,
+        progress: this.progress,
         ...this.workOrdersForm.value,
         status: 'WIP'
       }

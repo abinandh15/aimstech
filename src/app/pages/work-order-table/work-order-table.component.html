@@ -1,8 +1,8 @@
 <nb-card>
     <nb-card-header>
-        <h1>{{title}}</h1>
+        <h4>{{title}}</h4>
         <div class="action-buttons" *ngIf="showAddButton">
-            <button nbButton status="primary" (click)="addWorkOrder()">ADD</button>
+            <button nbButton status="primary" (click)="add()">ADD</button>
             <!-- <button nbButton status="success" [disabled]="!isSelected" (click)="editWorkOrder()">EDIT</button> -->
             <!-- <button nbButton status="danger" [disabled]="!isSelected">DELETE</button> -->
         </div>

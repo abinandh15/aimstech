@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PagesComponent } from './pages.component';
 import { StockManagementComponent } from './stock-management/stock-management.component';
+import { WorkOrderStatusComponent } from './work-order-status/work-order-status.component';
 import { WorkOrderComponent } from './work-order/work-order.component';
 
 const routes: Routes = [
@@ -10,7 +11,7 @@ const routes: Routes = [
     {path:'dashboard', component: DashboardComponent},
     {path:'work-order', component: WorkOrderComponent},
     {path:'stock-management', component: StockManagementComponent},
-    {path:'work-order-status', component: StockManagementComponent},
+    {path:'work-order-status', component: WorkOrderStatusComponent},
     {path:'', redirectTo:'dashboard', pathMatch:'full'}
   ]}
 ];

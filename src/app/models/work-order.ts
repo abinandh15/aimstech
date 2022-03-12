@@ -9,6 +9,15 @@ export interface WorkOrder {
     created: string;
     modified: Date;
     status?: string;
+    progress: ProgressStatus;
+}
+
+export interface ProgressStatus{
+    stockReceived: number;
+    assembling: number;
+    burnIn: number;
+    fqc: number;
+    packing: number;
 }
 
 export interface Item {

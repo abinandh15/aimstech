@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { WorkOrder } from 'src/app/models/work-order';
+import { WorkOrderService } from 'src/app/services/work-order.service';
 
 @Component({
   selector: 'app-edit-work-order-status',
@@ -8,9 +10,32 @@ import { WorkOrder } from 'src/app/models/work-order';
 })
 export class EditWorkOrderStatusComponent implements OnInit {
   selectedWorkOrder!: WorkOrder;
-  constructor() { }
+  statusForm!: FormGroup;
+  showForm: Boolean = false;
+  constructor(public fb: FormBuilder, private workOrderService: WorkOrderService) { }
 
   ngOnInit(): void {
+    this.statusForm = this.fb.group({
+      stockReceived: [0],
+      assembling: [0],
+      burnIn: [0],
+      fqc: [0],
+      packing: [0]
+    })
+
+
+    this.statusForm.patchValue(this.selectedWorkOrder.progress)
+  }
+
+  async updateStatus() {
+    const data = {
+      ...this.selectedWorkOrder,
+      progress: this.statusForm.value
+    }
+    await this.workOrderService.updateWorkOrder(data).then(res => {
+      this.showForm = !this.showForm;
+      this.selectedWorkOrder.progress =  this.statusForm.value;
+    })
   }
 
 }

@@ -14,8 +14,8 @@ import { QuantityDisplayComponent } from '../quantity-display/quantity-display.c
 export class UpdateStockComponent implements OnInit {
   selectedWorkOrder!: WorkOrder;
   items!: Item[];
-  tableData:LocalDataSource = new LocalDataSource()
-  tableSettings: Object ={}
+  tableData: LocalDataSource = new LocalDataSource()
+  tableSettings: Object = {}
   itemForm!: FormGroup;
   selectedItem!: Item;
   showForm: boolean = false;
@@ -32,7 +32,9 @@ export class UpdateStockComponent implements OnInit {
 
     this.tableSettings = {
       actions: false,
-      columns:{
+      pager: { display: false },
+      sort: false,
+      columns: {
         itemName: {
           title: "Item Name",
           width: "50%",
@@ -40,17 +42,17 @@ export class UpdateStockComponent implements OnInit {
         },
         quantity: {
           title: "Quantity",
-          filter: false,          
+          filter: false,
           type: 'custom',
-          valuePrepareFunction:(value: any,row: any,cell: any)=>{
-            return {workOrderQuantity: this.selectedWorkOrder.quantity,...row}
+          valuePrepareFunction: (value: any, row: any, cell: any) => {
+            return { workOrderQuantity: this.selectedWorkOrder.quantity, ...row }
           },
           renderComponent: QuantityDisplayComponent
         }
       }
     }
-    
-    if(!!this.selectedWorkOrder.items){
+
+    if (!!this.selectedWorkOrder.items) {
       this.tableData = new LocalDataSource(this.selectedWorkOrder.items)
     }
   }
@@ -59,28 +61,35 @@ export class UpdateStockComponent implements OnInit {
     this.dialogRef.close(data)
   }
 
-  async saveItem(){
+  async saveItem() {
     let data: WorkOrder;
-    if(!!this.selectedWorkOrder.items){
-        data = {
-          ...this.selectedWorkOrder,
-          items: [
-            ...this.selectedWorkOrder.items.filter(item=> item.itemName !== this.itemForm.value.itemName),
-            this.itemForm.value
-          ]
-        }  
- 
-    }else{
-        data = {
-          ...this.selectedWorkOrder,
-          items: [
-            {...this.itemForm.value}
-          ]
-        }  
+    if (!!this.selectedWorkOrder.items) {
+      data = {
+        ...this.selectedWorkOrder,
+        items: [
+          ...this.selectedWorkOrder.items.map(item => {
+            if (item.itemName === this.itemForm.value.itemName) {
+              return this.itemForm.value
+            } else {
+              return item
+            }
+          }),
+
+        ]
+      }
+
+    } else {
+      data = {
+        ...this.selectedWorkOrder,
+        items: [
+          { ...this.itemForm.value }
+        ]
+      }
     }
     this.workOrderServ.updateWorkOrder(data).then(res => {
-   
-       this.showForm = !this.showForm;
+      this.selectedWorkOrder.items = data.items;
+      this.tableData = new LocalDataSource(this.selectedWorkOrder.items)
+      this.showForm = !this.showForm;
 
     }).catch(err => { console.log(err) })
     // const data: WorkOrder = {
@@ -93,17 +102,17 @@ export class UpdateStockComponent implements OnInit {
 
   }
 
-  addItem(){
+  addItem() {
     this.showForm = !this.showForm;
     this.itemForm.reset()
   }
 
-  async selectedRow({isSelected, data}: any){
-    if(isSelected){
+  async selectedRow({ isSelected, data }: any) {
+    if (isSelected) {
       this.selectedItem = data;
       this.showForm = !this.showForm;
       this.itemForm.patchValue(this.selectedItem)
-    }    
+    }
   }
 
 }

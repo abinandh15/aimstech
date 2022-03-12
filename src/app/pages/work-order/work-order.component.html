@@ -17,5 +17,7 @@
     [tableSettings]="tableSettings"
     (rowSelected)="selectRow($event)"
     [workOrders$]="workOrders$"
+    [showAddButton]="true"
+    (addWorkOrder) = "addWorkOrder()"
 >    
 </app-work-order-table>

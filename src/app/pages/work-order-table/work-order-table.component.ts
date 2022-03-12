@@ -13,6 +13,7 @@ export class WorkOrderTableComponent implements OnInit, OnDestroy {
   @Input() showAddButton: boolean = false;
   @Input() tableSettings = {}
   @Output() rowSelected = new EventEmitter();
+  @Output() addWorkOrder = new EventEmitter();
   @Input() title: string = 'Work Orders'
   accordionData: any = []
   protected subscription!: Subscription;
@@ -67,8 +68,8 @@ export class WorkOrderTableComponent implements OnInit, OnDestroy {
     this.rowSelected.emit({ isSelected, data })
   }
 
-  addWorkOrder() {
-
+  add() {
+    this.addWorkOrder.emit()
   }
 
   ngOnDestroy(): void {

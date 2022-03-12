@@ -42,10 +42,24 @@
   }
 
 
+
   ::ng-deep {
+    @media (max-width: 576px) {
+      .dialog-card{
+        width: 80vw;
+      }
+    }
+    .item-body{
+      padding: 0.2rem !important;
+    }
     ng2-smart-table {
+
       table {
+        thead{
+          text-align: center;
+        }
         tbody {
+          text-align: center;
           /* Alternating row colour */
           tr:nth-child(2n) {
             background-color: nb-theme(color-primary-400);
@@ -63,6 +77,7 @@
 
         /* headers */
         tr.ng2-smart-titles th {
+          
           a {
             font-weight: bold !important;
           }

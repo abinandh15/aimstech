@@ -1,1 +1,75 @@
-<p>edit-work-order-status works!</p>
+<nb-card class="update-stock-container">
+    <nb-card-header class="update-stock-header">
+        <h3>Work Order Status</h3>
+    </nb-card-header>
+    <nb-card-body>
+        <section class="container">
+            <div class="row">
+                <div class="col">
+                    <p><b>Customer Name</b></p>
+                    <p><b>Part Number</b></p>
+                    <p><b>Chase Type</b></p>
+                </div>
+                <div class="col">
+                    <p>{{selectedWorkOrder.customerName}}</p>
+                    <p>{{selectedWorkOrder.partNumber}}</p>
+                    <p>{{selectedWorkOrder.chaseType}}</p>
+                </div>
+            </div> 
+        </section>
+
+        <section class="container mt-2">
+            <div class="d-flex justify-content-end mb-3">
+                <button nbButton status="danger" size="small" *ngIf="!showForm" (click)="showForm = !showForm">edit</button>
+                <button nbButton size="small" status="success" *ngIf="showForm" (click)="updateStatus()">save</button>
+            </div>
+           <form [formGroup]="statusForm">
+                <div class="row mb-2">
+                    <div class="col">
+                        <p>Stock Received</p>
+                    </div>
+                    <div class="col">
+                        <p *ngIf="!showForm">{{selectedWorkOrder.progress.stockReceived}} / {{selectedWorkOrder.quantity}}</p>
+                        <input *ngIf="showForm" type="number" formControlName="stockReceived" nbInput fullWidth fieldSize="medium">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col">
+                        <p>Assembling</p>
+                    </div>
+                    <div class="col">
+                        <p *ngIf="!showForm">{{selectedWorkOrder.progress.assembling}} / {{selectedWorkOrder.quantity}}</p>
+                        <input *ngIf="showForm" type="number" formControlName="assembling" nbInput fullWidth fieldSize="medium">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col">
+                        <p>Burn In</p>
+                    </div>
+                    <div class="col">
+                        <p *ngIf="!showForm">{{selectedWorkOrder.progress.burnIn}} / {{selectedWorkOrder.quantity}}</p>
+                        <input *ngIf="showForm" type="number" formControlName="burnIn" nbInput fullWidth fieldSize="medium">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col">
+                        <p>FQC</p>
+                    </div>
+                    <div class="col">
+                        <p *ngIf="!showForm">{{selectedWorkOrder.progress.fqc}} / {{selectedWorkOrder.quantity}}</p>
+                        <input *ngIf="showForm" type="number" formControlName="fqc" nbInput fullWidth fieldSize="medium">
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col">
+                        <p>Packing</p>
+                    </div>
+                    <div class="col">
+                        <p *ngIf="!showForm">{{selectedWorkOrder.progress.packing}} / {{selectedWorkOrder.quantity}}</p>
+                        <input *ngIf="showForm" type="number" formControlName="packing" nbInput fullWidth fieldSize="medium">
+                    </div>
+                </div>
+           </form>
+        </section>
+    </nb-card-body>
+</nb-card>

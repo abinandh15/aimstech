@@ -11,7 +11,7 @@
     </nb-layout-header>
 
     <nb-sidebar class="menu-sidebar" tag="menu-sidebar" responsive>
-      <nb-menu [items]="menu"></nb-menu>
+      <nb-menu (click)="toggleSidebar()" [autoCollapse]="true" [items]="menu"></nb-menu>
     </nb-sidebar>
 
     <nb-layout-column>
