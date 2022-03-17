@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NbDialogRef } from '@nebular/theme';
+import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { LocalDataSource } from 'ng2-smart-table';
+import { firstValueFrom } from 'rxjs';
+import { AlertBoxComponent } from 'src/app/alert-box/alert-box.component';
 import { Item, WorkOrder } from 'src/app/models/work-order';
 import { WorkOrderService } from 'src/app/services/work-order.service';
 import { QuantityDisplayComponent } from '../quantity-display/quantity-display.component';
@@ -20,18 +22,28 @@ export class UpdateStockComponent implements OnInit {
   selectedItem!: Item;
   showForm: boolean = false;
 
-  constructor(protected dialogRef: NbDialogRef<UpdateStockComponent>, private fb: FormBuilder, private workOrderServ: WorkOrderService) { }
+  constructor(protected dialogRef: NbDialogRef<UpdateStockComponent>, private fb: FormBuilder, private workOrderServ: WorkOrderService, private dialogServ: NbDialogService) { }
 
   ngOnInit(): void {
-    console.log(this.selectedWorkOrder)
     this.itemForm = this.fb.group({
       itemName: ['', Validators.required],
       quantity: [0, Validators.required],
       partNumber: ['', Validators.required]
     })
 
-    this.tableSettings = {
-      actions: false,
+    this.tableSettings = {   
+      actions: {
+          add: false,
+          edit: false,
+          delete: true,
+          position: 'right'
+      },
+      hideSubHeader: true,
+      delete: {
+        deleteButtonContent: `<img src="assets/nb-trash.svg" width="40" height="40">`,
+        confirmDelete: true
+      },
+
       pager: { display: false },
       sort: false,
       columns: {
@@ -54,6 +66,28 @@ export class UpdateStockComponent implements OnInit {
 
     if (!!this.selectedWorkOrder.items) {
       this.tableData = new LocalDataSource(this.selectedWorkOrder.items)
+    }
+  }
+
+  async onDeleteConfirm(event: any){
+    console.log(event)
+    const dialog = this.dialogServ.open(AlertBoxComponent)
+    const response = await firstValueFrom(dialog.onClose);
+    if(!!response){
+      if(response === "YES"){
+        this.tableData.remove(event.data);
+        const data = {
+          ...this.selectedWorkOrder,
+          items: [
+            ...this.selectedWorkOrder.items.filter(item=> item.itemName.toLowerCase() !== event.data.itemName.toLowerCase())
+          ]
+        }
+
+        this.workOrderServ.updateWorkOrder(data).then(res => {
+          this.selectedWorkOrder.items = data.items;
+        }).catch(err => { console.log(err) })
+        
+      }
     }
   }
 
@@ -86,6 +120,14 @@ export class UpdateStockComponent implements OnInit {
         ]
       }
     }
+    let pending = false;
+    for(let i=0; i< data.items.length; i++){
+      if(data.items[i].quantity < data.quantity){
+        pending = true
+        break;
+      }
+    }
+    data.status = pending ? 'Pending' : 'Completed';
     this.workOrderServ.updateWorkOrder(data).then(res => {
       this.selectedWorkOrder.items = data.items;
       this.tableData = new LocalDataSource(this.selectedWorkOrder.items)

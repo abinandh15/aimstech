@@ -26,16 +26,15 @@ export class WorkOrderStatusComponent implements OnInit {
           width: '50%',
           filter: false
         },
-        quantity:{
-          title: "Quantity",
-          filter: false
+        workOrderStatus:{
+            title: "Progress",
+            filter: false
         }
       }
     }
   }
 
   async selectRow({isSelected, data}: any){
-    console.log(data)
     if(isSelected){
       const workOrderDialog = await this.dialogService.open(EditWorkOrderStatusComponent, {
         context:{

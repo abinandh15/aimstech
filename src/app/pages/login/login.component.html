@@ -1,0 +1,21 @@
+<section>
+
+
+  <nb-card class="login_card">
+    <nb-card-header>
+      Login
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="loginForm" class="row">
+        <label for="email" class="mt-3">Email</label><br>
+        <input id="email" formControlName="email" nbInput type="email" />
+        <label for="password" class="mt-3">Password</label><br>
+        <input id="password" formControlName="password" nbInput type="password" />
+      </form>
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton size="small" status="success" (click)="onSubmit()">Login</button>
+    </nb-card-footer>
+  </nb-card>
+
+</section>

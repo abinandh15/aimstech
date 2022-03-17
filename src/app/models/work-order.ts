@@ -5,11 +5,13 @@ export interface WorkOrder {
     customerName: string;
     partNumber: string;
     chaseType: CHASE_TYPE;
-    items?: Item[];
+    items: Item[];
     created: string;
     modified: Date;
     status?: string;
+    workOrderStatus: string;
     progress: ProgressStatus;
+
 }
 
 export interface ProgressStatus{
@@ -17,7 +19,7 @@ export interface ProgressStatus{
     assembling: number;
     burnIn: number;
     fqc: number;
-    packing: number;
+    packing: number;   
 }
 
 export interface Item {

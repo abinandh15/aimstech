@@ -138,8 +138,9 @@ export class EditWorkOrderComponent implements OnInit {
         created: new Date().toISOString(),
         items: this.items,
         progress: this.progress,
+        workOrderStatus: '0',
         ...this.workOrdersForm.value,
-        status: 'WIP'
+        status: 'Pending'
       }
       this.workOrderServ.addWorkOrder(data).then(res => {
         if (!!res) {

@@ -47,7 +47,6 @@ export class WorkOrderComponent implements OnInit {
 
   async updateTable(){
     this.workOrders$ = this.workorderserv.getWorkOrders();
-    console.log(this.workOrders$)
     // await this.workorderserv.getWorkOrders().pipe(take(1)).subscribe(workOrders => {
     //   console.log(workOrders)
     //   this.orders = workOrders.sort((a, b) => -a.created.localeCompare(b.created));
@@ -82,8 +81,6 @@ export class WorkOrderComponent implements OnInit {
     }else{
       this.selectedRow = undefined;
     }
-    console.log(isSelected)
-    console.log(data)
   }
 
 }

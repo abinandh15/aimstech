@@ -1,16 +1,17 @@
 <nb-layout windowMode>
     <nb-layout-header fixed>
-      <div class="header-container">
+      <div class="header-container w-100 d-flex justify-content-between">
         <div class="logo-container">
           <a (click)="toggleSidebar()" href="#" class="sidebar-toggle">
             <nb-icon icon="menu-2-outline"></nb-icon>
           </a>
           <a class="logo" href="#" (click)="navigateHome()">Aims<span>Tech</span></a>
-        </div>        
+        </div>
+        <div *ngIf="auth.currentUser" (click)="logout()">Logout</div>        
       </div>
     </nb-layout-header>
 
-    <nb-sidebar class="menu-sidebar" tag="menu-sidebar" responsive>
+    <nb-sidebar class="menu-sidebar" tag="menu-sidebar" responsive *ngIf="auth.currentUser">
       <nb-menu (click)="toggleSidebar()" [autoCollapse]="true" [items]="menu"></nb-menu>
     </nb-sidebar>
 
@@ -19,8 +20,6 @@
     </nb-layout-column>
 
     <nb-layout-footer fixed>
-      <span class="created-by">
-        Created with ♥ by <b><a href="https://akveo.page.link/8V2f" target="_blank">GenuineMonkey</a></b> 2022
-      </span>
+    
     </nb-layout-footer>
  </nb-layout>

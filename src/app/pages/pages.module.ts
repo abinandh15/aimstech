@@ -15,6 +15,10 @@ import { QuantityDisplayComponent } from './quantity-display/quantity-display.co
 import { WorkOrderTableComponent } from './work-order-table/work-order-table.component';
 import { WorkOrderStatusComponent } from './work-order-status/work-order-status.component';
 import { EditWorkOrderStatusComponent } from './edit-work-order-status/edit-work-order-status.component';
+import { LoginComponent } from './login/login.component';
+import { AuthService } from '../services/auth.service';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { AlertBoxComponent } from '../alert-box/alert-box.component';
 
 
 @NgModule({
@@ -29,7 +33,9 @@ import { EditWorkOrderStatusComponent } from './edit-work-order-status/edit-work
     WorkOrderComponent,
     WorkOrderTableComponent,
     WorkOrderStatusComponent,
-    EditWorkOrderStatusComponent
+    EditWorkOrderStatusComponent,
+    LoginComponent,
+    AlertBoxComponent
   ],
   imports: [
     CommonModule,

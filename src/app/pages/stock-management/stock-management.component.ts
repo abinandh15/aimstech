@@ -55,7 +55,6 @@ export class StockManagementComponent implements OnInit, OnDestroy {
   }
 
   async selectRow({isSelected, data}: any){
-    console.log(data)
     if(isSelected){
       const workOrderDialog = await this.dialogService.open(UpdateStockComponent, {
         context:{

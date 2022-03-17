@@ -1,6 +1,7 @@
 <nb-card class="update-stock-container">
-    <nb-card-header class="update-stock-header">
+    <nb-card-header class="update-stock-header d-flex justify-content-between">
         <h3>Update Stocks</h3>
+        <button nbButton ghost (click)="closeDialog(null)"><nb-icon icon="close"></nb-icon></button>
     </nb-card-header>
     <nb-card-body>
         <div class="row">
@@ -48,6 +49,6 @@
                 </div>
 
         </form>
-        <ng2-smart-table *ngIf="!showForm" [settings]="tableSettings" [source]="tableData" (userRowSelect)="selectedRow($event)"></ng2-smart-table>
+        <ng2-smart-table *ngIf="!showForm" [settings]="tableSettings" [source]="tableData" (userRowSelect)="selectedRow($event)" (deleteConfirm)="onDeleteConfirm($event)"></ng2-smart-table>
     </nb-card-body>
 </nb-card>

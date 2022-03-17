@@ -8,8 +8,8 @@
         </div>
     </nb-card-header>
     <nb-card-body>
-        <nb-accordion *ngFor="let month of accordionData">
-            <nb-accordion-item>
+        <nb-accordion *ngFor="let month of accordionData; let i = index" >
+            <nb-accordion-item [expanded]="i === 0">
                 <nb-accordion-item-header>{{month.monthString}}</nb-accordion-item-header>
 
                 <nb-accordion-item-body>

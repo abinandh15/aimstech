@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Auth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 import { NbMenuService, NbSidebarService } from '@nebular/theme';
+import { AuthService } from '../services/auth.service';
 import { MENU_ITEMS } from './pages-menu';
 
 @Component({
@@ -10,7 +13,7 @@ import { MENU_ITEMS } from './pages-menu';
 export class PagesComponent implements OnInit {
 
   menu = MENU_ITEMS;
-  constructor(private sidebarService: NbSidebarService, private menuService: NbMenuService) { }
+  constructor(private sidebarService: NbSidebarService, private menuService: NbMenuService, private authServ: AuthService, private router: Router, public auth:Auth) { }
 
   ngOnInit(): void {
 
@@ -24,6 +27,10 @@ export class PagesComponent implements OnInit {
   navigateHome() {
     this.menuService.navigateHome();
     return false;
+  }
+
+  logout(){
+    this.authServ.logout().then(res=>{console.log(res); this.router.navigate(['pages/login'])}).catch(err=>console.log(err))
   }
 
 }

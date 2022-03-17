@@ -20,12 +20,10 @@ export class WorkOrderTableComponent implements OnInit, OnDestroy {
   constructor(protected workOrderService: WorkOrderService) { }
 
   ngOnInit(): void {
-    console.log('hi')
     this.getAccordianData();
   }
 
   async getAccordianData() {
-    console.log('hii')
     this.subscription = await this.workOrderService.getWorkOrders().pipe(map(workorders=>{
       this.accordionData = [];
       let prevMonth = new Date(workorders[0].created).getMonth();
@@ -60,7 +58,6 @@ export class WorkOrderTableComponent implements OnInit, OnDestroy {
         }
 
       })
-      console.log(this.accordionData)
     })).subscribe()
   }
 

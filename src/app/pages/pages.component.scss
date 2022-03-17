@@ -44,6 +44,10 @@
 
 
   ::ng-deep {
+    .delete-button{
+      font-size: 0.5rem;
+  }
+
     @media (max-width: 576px) {
       .dialog-card{
         width: 80vw;
