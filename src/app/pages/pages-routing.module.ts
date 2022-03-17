@@ -8,15 +8,17 @@ import { WorkOrderStatusComponent } from './work-order-status/work-order-status.
 import { WorkOrderComponent } from './work-order/work-order.component';
 import { AuthGuard, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 
-const redirectLoggedInToDashboard = () => redirectLoggedInTo(['dashboard'])
+const redirectLoggedInToDashboard = () => redirectLoggedInTo(['pages/dashboard'])
+
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['pages/login'])
 
 const routes: Routes = [
   {path:'', component:PagesComponent,children: [
     {path:'login', component: LoginComponent, canActivate:[AuthGuard], data:{authGuardPipe:redirectLoggedInToDashboard}},
-    {path:'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
-    {path:'work-order', component: WorkOrderComponent, canActivate:[AuthGuard]},
-    {path:'stock-management', component: StockManagementComponent, canActivate:[AuthGuard]},
-    {path:'work-order-status', component: WorkOrderStatusComponent, canActivate:[AuthGuard]},
+    {path:'dashboard', component: DashboardComponent, canActivate:[AuthGuard], data:{authGuardPipe: redirectUnauthorizedToLogin}},
+    {path:'work-order', component: WorkOrderComponent, canActivate:[AuthGuard], data:{authGuardPipe: redirectUnauthorizedToLogin}},
+    {path:'stock-management', component: StockManagementComponent, canActivate:[AuthGuard], data:{authGuardPipe: redirectUnauthorizedToLogin}},
+    {path:'work-order-status', component: WorkOrderStatusComponent, canActivate:[AuthGuard], data:{authGuardPipe: redirectUnauthorizedToLogin}},
     {path:'', redirectTo:'dashboard', pathMatch:'full'}
   ]}
 ];
