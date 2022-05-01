@@ -29,7 +29,8 @@ export class WorkOrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.tableSettings = {
-      actions: false,
+      actions: false,      
+      pager: { display: false },
       columns:{
         workOrderNumber:{
           title: "Work Order",

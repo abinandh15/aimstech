@@ -9,7 +9,7 @@ export interface WorkOrder {
     created: string;
     modified: Date;
     status?: string;
-    workOrderStatus: string;
+    workOrderStatus: any;
     progress: ProgressStatus;
 
 }

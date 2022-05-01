@@ -25,79 +25,7 @@ export class EditWorkOrderComponent implements OnInit {
     fqc: 0,
     packing: 0
   }
-  items: Item[] = [
-    {
-      itemName: 'Chassis',
-      partNumber: '',
-      quantity: 0
-    },
-    {
-      itemName: 'SMPS',
-      partNumber: '',
-      quantity: 0
-    },    {
-      itemName: 'DVD',
-      partNumber: '',
-      quantity: 0
-    }, {
-      itemName: 'HDD',
-      partNumber: '',
-      quantity: 0
-    },    {
-      itemName: 'SSD',
-      partNumber: '',
-      quantity: 0
-    },    {
-      itemName: 'MBD',
-      partNumber: '',
-      quantity: 0
-    },    {
-      itemName: 'CPU',
-      partNumber: '',
-      quantity: 0
-    },    {
-      itemName: 'Memory',
-      partNumber: '',
-      quantity: 0
-    },    {
-      itemName: 'Heat Sink',
-      partNumber: '',
-      quantity: 0
-    },
-    {
-      itemName: 'Serial Port Cable',
-      partNumber: '',
-      quantity: 0
-    },    {
-      itemName: 'Parallel Port Cable',
-      partNumber: '',
-      quantity: 0
-    },    {
-      itemName: 'Power Cord',
-      partNumber: '',
-      quantity: 0
-    },    {
-      itemName: 'Keyboard',
-      partNumber: '',
-      quantity: 0
-    },    {
-      itemName: 'Mouse',
-      partNumber: '',
-      quantity: 0
-    },    {
-      itemName: 'Mouse Pad',
-      partNumber: '',
-      quantity: 0
-    },    {
-      itemName: 'RCD',
-      partNumber: '',
-      quantity: 0
-    },    {
-      itemName: 'OS CD',
-      partNumber: '',
-      quantity: 0
-    }
-  ]
+  items: Item[] = []
   constructor(public fb: FormBuilder, private dialogRef: NbDialogRef<EditWorkOrderComponent>, private workOrderServ: WorkOrderService) { }
 
   ngOnInit(): void {
@@ -138,7 +66,7 @@ export class EditWorkOrderComponent implements OnInit {
         created: new Date().toISOString(),
         items: this.items,
         progress: this.progress,
-        workOrderStatus: '0',
+        workOrderStatus: 0,
         ...this.workOrdersForm.value,
         status: 'Pending'
       }

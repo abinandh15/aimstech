@@ -13,9 +13,9 @@ export class WorkOrderService {
  
   constructor(private firestore: Firestore) {}
 
-  getWorkOrders(): Observable<WorkOrder[]>{
+  getWorkOrders(sortBy: string = 'created'): Observable<WorkOrder[]>{
     const workOrderRef = collection(this.firestore,'WorkOrders');
-    return (collectionData(workOrderRef, {idField: 'id'}) as Observable<WorkOrder[]>).pipe(map(workorders=> workorders.sort((a,b)=> -a.created.localeCompare(b.created))))
+    return (collectionData(workOrderRef, {idField: 'id'}) as Observable<WorkOrder[]>).pipe(map(workorders=> workorders.sort((a,b)=> -a[sortBy as keyof WorkOrder].localeCompare(b[sortBy as keyof WorkOrder]))))
   }
 
   getWorkOrderById(id: string): Observable<WorkOrder>{
@@ -37,5 +37,20 @@ export class WorkOrderService {
     const workOrderRef = doc(this.firestore, `WorkOrders/${workOrder.id}`);
     return updateDoc(workOrderRef, {...workOrder})
   }
+
+
+
+  // updateWorkOrdersData(){
+  //   const workOrderRef = collection(this.firestore,'WorkOrders');
+  //   (collectionData(workOrderRef, {idField: 'id'}) as Observable<WorkOrder[]>).subscribe((workorders => {
+  //     workorders.forEach(async workOrder=>{
+  //       const data: WorkOrder = {
+  //         ...workOrder,
+  //         workOrderStatus: workOrder.workOrderStatus ? +workOrder.workOrderStatus.replace(/[^0-9 ]/g, '') : 0
+  //       }
+  //       await this.updateWorkOrder(data)
+  //     })
+  //   }))
+  // }
 
 }

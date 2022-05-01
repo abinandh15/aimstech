@@ -24,7 +24,8 @@ export class StockManagementComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.tableSettings = {
-      actions: false,
+      actions: false,      
+      pager: { display: false },
       columns:{
         workOrderNumber:{
           title: "Work Order",

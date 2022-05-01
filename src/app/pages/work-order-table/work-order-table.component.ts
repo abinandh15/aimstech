@@ -15,6 +15,7 @@ export class WorkOrderTableComponent implements OnInit, OnDestroy {
   @Output() rowSelected = new EventEmitter();
   @Output() addWorkOrder = new EventEmitter();
   @Input() title: string = 'Work Orders'
+  @Input() filterBy: string = 'created';
   accordionData: any = []
   protected subscription!: Subscription;
   constructor(protected workOrderService: WorkOrderService) { }
@@ -24,7 +25,8 @@ export class WorkOrderTableComponent implements OnInit, OnDestroy {
   }
 
   async getAccordianData() {
-    this.subscription = await this.workOrderService.getWorkOrders().pipe(map(workorders=>{
+    this.subscription = await this.workOrderService.getWorkOrders(this.filterBy).pipe(map(workorders=>{
+
       this.accordionData = [];
       let prevMonth = new Date(workorders[0].created).getMonth();
       let iterator = 0;

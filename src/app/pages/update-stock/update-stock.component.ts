@@ -122,8 +122,8 @@ export class UpdateStockComponent implements OnInit {
     }
     let pending = false;
     for(let i=0; i< data.items.length; i++){
-      if(data.items[i].quantity < data.quantity){
-        pending = true
+      if(data.items[i].quantity == 0){
+        pending = false
         break;
       }
     }

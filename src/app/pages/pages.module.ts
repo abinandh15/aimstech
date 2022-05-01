@@ -19,6 +19,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthService } from '../services/auth.service';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AlertBoxComponent } from '../alert-box/alert-box.component';
+import { PercentageViewComponent } from '../percentage-view/percentage-view.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { AlertBoxComponent } from '../alert-box/alert-box.component';
     WorkOrderStatusComponent,
     EditWorkOrderStatusComponent,
     LoginComponent,
-    AlertBoxComponent
+    AlertBoxComponent,
+    PercentageViewComponent
   ],
   imports: [
     CommonModule,
