@@ -2,7 +2,13 @@ import { Component, Input, OnInit, Output, EventEmitter, OnDestroy } from '@angu
 import { map, Observable, Subscription, take } from 'rxjs';
 import { WorkOrder } from 'src/app/models/work-order';
 import { WorkOrderService } from 'src/app/services/work-order.service';
-
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import { RowInput, UserOptions } from 'jspdf-autotable';
+interface jsPDFWithPlugin extends jsPDF {
+  [x: string]: any;
+  autoTable: (options: UserOptions) => jsPDF;
+}
 @Component({
   selector: 'app-work-order-table',
   templateUrl: './work-order-table.component.html',
@@ -11,9 +17,11 @@ import { WorkOrderService } from 'src/app/services/work-order.service';
 export class WorkOrderTableComponent implements OnInit, OnDestroy {
   @Input() workOrders$!: Observable<WorkOrder[]>
   @Input() showAddButton: boolean = false;
+  @Input() showPrintButton: boolean = false;
   @Input() tableSettings = {}
   @Output() rowSelected = new EventEmitter();
   @Output() addWorkOrder = new EventEmitter();
+  @Output() printWorkOrders = new EventEmitter();
   @Input() title: string = 'Work Orders'
   @Input() filterBy: string = 'created';
   accordionData: any = []
@@ -69,6 +77,37 @@ export class WorkOrderTableComponent implements OnInit, OnDestroy {
 
   add() {
     this.addWorkOrder.emit()
+  }
+
+  print(){
+    const doc = new jsPDF('portrait', 'px', 'a4') as jsPDFWithPlugin;
+    let year = 0
+    this.accordionData.forEach((month:{monthString:string, workOrders: WorkOrder[]},index:number) =>{
+    let data: RowInput[] = []
+   
+    const date = new Date(month.workOrders[0].created);
+    year = date.getFullYear();
+    const filteredWorkorders = month.workOrders.filter(workOrder => workOrder.status == "Pending")
+    if(filteredWorkorders.length > 0){
+    month.workOrders.forEach((el:WorkOrder)=>{
+        if(el.status == "Pending"){
+          data.push([el.workOrderNumber.toString(), el.quantity.toString(), el.status.toString()]) 
+        }
+      })
+      doc.text(month.monthString, 20, 20)
+
+      doc.autoTable({
+        head: [['WorkOrder', 'Quantity', 'Status']],
+        body: data
+      })
+      if(index != this.accordionData.length - 1){
+        doc.addPage()
+      }
+    }
+
+    })
+    
+    doc.save('WorkOrder' + Date.now().toString() + year)
   }
 
   ngOnDestroy(): void {

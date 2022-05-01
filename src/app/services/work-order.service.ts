@@ -46,7 +46,7 @@ export class WorkOrderService {
   //     workorders.forEach(async workOrder=>{
   //       const data: WorkOrder = {
   //         ...workOrder,
-  //         workOrderStatus: workOrder.workOrderStatus ? +workOrder.workOrderStatus.replace(/[^0-9 ]/g, '') : 0
+  //         status: 'Completed'
   //       }
   //       await this.updateWorkOrder(data)
   //     })

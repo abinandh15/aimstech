@@ -97,7 +97,7 @@ export class UpdateStockComponent implements OnInit {
 
   async saveItem() {
     let data: WorkOrder;
-    if (!!this.selectedWorkOrder.items) {
+    if (this.selectedWorkOrder.items.length > 0) {
       data = {
         ...this.selectedWorkOrder,
         items: [
@@ -120,15 +120,17 @@ export class UpdateStockComponent implements OnInit {
         ]
       }
     }
-    let pending = false;
+    let pending = true;
     for(let i=0; i< data.items.length; i++){
       if(data.items[i].quantity == 0){
         pending = false
         break;
       }
     }
+    console.log(data)
     data.status = pending ? 'Pending' : 'Completed';
     this.workOrderServ.updateWorkOrder(data).then(res => {
+      console.log(res)
       this.selectedWorkOrder.items = data.items;
       this.tableData = new LocalDataSource(this.selectedWorkOrder.items)
       this.showForm = !this.showForm;

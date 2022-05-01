@@ -1,14 +1,18 @@
-<nb-card >
+<nb-card>
     <nb-card-header>
         <h4>{{title}}</h4>
-        <div class="action-buttons" *ngIf="showAddButton">
-            <button nbButton status="primary" (click)="add()">ADD</button>
+        <div class="action-buttons">
+            <button nbButton status="primary" *ngIf="showAddButton" (click)="add()">ADD</button>
             <!-- <button nbButton status="success" [disabled]="!isSelected" (click)="editWorkOrder()">EDIT</button> -->
             <!-- <button nbButton status="danger" [disabled]="!isSelected">DELETE</button> -->
+            <button nbButton style="float:right" status="primary" *ngIf="showPrintButton"
+                (click)="print()">PRINT</button>
+
+
         </div>
     </nb-card-header>
     <nb-card-body>
-        <nb-accordion class="mb-5" *ngFor="let month of accordionData; let i = index" >
+        <nb-accordion class="mb-5" *ngFor="let month of accordionData; let i = index">
             <nb-accordion-item [expanded]="i === 0">
                 <nb-accordion-item-header>{{month.monthString}}</nb-accordion-item-header>
 
