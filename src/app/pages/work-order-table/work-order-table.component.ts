@@ -66,7 +66,6 @@ export class WorkOrderTableComponent implements OnInit, OnDestroy {
             this.accordionData[iterator].workOrders.push(workorder)
           }
         }
-
       })
     })).subscribe()
   }
@@ -91,13 +90,15 @@ export class WorkOrderTableComponent implements OnInit, OnDestroy {
     if(filteredWorkorders.length > 0){
     month.workOrders.forEach((el:WorkOrder)=>{
         if(el.status == "Pending"){
-          data.push([el.workOrderNumber.toString(), el.quantity.toString(), el.status.toString()]) 
+          el.items.forEach(item=>{
+            data.push([el.workOrderNumber.toString(),item.itemName , item.quantity.toString(), el.status? el.status.toString() : 'Pending']) 
+          })
         }
       })
-      doc.text(month.monthString, 20, 20)
+      doc.text(month.monthString, 30, 20)
 
       doc.autoTable({
-        head: [['WorkOrder', 'Quantity', 'Status']],
+        head: [['WorkOrder','Item Name', 'Quantity', 'Status']],
         body: data
       })
       if(index != this.accordionData.length - 1){
