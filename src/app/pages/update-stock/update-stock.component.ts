@@ -82,7 +82,8 @@ export class UpdateStockComponent implements OnInit {
             ...this.selectedWorkOrder.items.filter(item=> item.itemName.toLowerCase() !== event.data.itemName.toLowerCase())
           ]
         }
-
+        data.status = data.items.length > 0 ? 'Pending' : 'Completed';
+       
         this.workOrderServ.updateWorkOrder(data).then(res => {
           this.selectedWorkOrder.items = data.items;
         }).catch(err => { console.log(err) })
@@ -96,19 +97,13 @@ export class UpdateStockComponent implements OnInit {
   }
 
   async saveItem() {
-    let data: WorkOrder;
+    let data: WorkOrder;    
     if (this.selectedWorkOrder.items.length > 0) {
       data = {
         ...this.selectedWorkOrder,
         items: [
-          ...this.selectedWorkOrder.items.map(item => {
-            if (item.itemName === this.itemForm.value.itemName) {
-              return this.itemForm.value
-            } else {
-              return item
-            }
-          }),
-
+          ...this.selectedWorkOrder.items.filter(item=>item.partNumber != this.itemForm.value.partNumber),
+          this.itemForm.value
         ]
       }
 
@@ -122,7 +117,7 @@ export class UpdateStockComponent implements OnInit {
     }
     let pending = true;
     for(let i=0; i< data.items.length; i++){
-      if(data.items[i].quantity == 0){
+      if(data.items.length <= 0 || data.items[i].quantity == 0){
         pending = false
         break;
       }
